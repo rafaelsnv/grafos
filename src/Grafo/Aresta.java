@@ -1,36 +1,55 @@
 package Grafo;
 
-public class Aresta
+public class Aresta{
+    private int id, peso, direcao;
+    private Vertice v1, v2;
 
-{
-    /** Attributes */
-    /**
-     * 
-     */
-    private int id;
-    /**
-     * 
-     */
-    private int peso;
-    /**
-     * 
-     */
-    private Vertice v1;
-    /**
-     * 
-     */
-    private Vertice v2;
-    /**
-     * 
-     */
-    private int direcao;
-    /**
-     * Operation getGrau
-     *
-     * @return int
-     */
-    public int getGrau (  ){
-        return 0;
+    public Aresta(int id, int peso, int direcao, Vertice v1, Vertice v2) {
+        this.id = id;
+        this.peso = peso;
+        this.direcao = direcao;
+        this.v1 = v1;
+        this.v2 = v2;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPeso() {
+        return this.peso;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    public int getDirecao() {
+        return this.direcao;
+    }
+
+    public void setDirecao(int direcao) {
+        this.direcao = direcao;
+    }
+
+    public Vertice getV1() {
+        return this.v1;
+    }
+
+    public void setV1(Vertice v1) {
+        this.v1 = v1;
+    }
+
+    public Vertice getV2() {
+        return this.v2;
+    }
+
+    public void setV2(Vertice v2) {
+        this.v2 = v2;
     }
 }
 
