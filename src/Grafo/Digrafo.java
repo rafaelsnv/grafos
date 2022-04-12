@@ -2,9 +2,7 @@ package Grafo;
 
 import java.util.ArrayList;
 
-public class Digrafo
-
-{
+public class Digrafo {
     /** Attributes */
     /**
      * 
