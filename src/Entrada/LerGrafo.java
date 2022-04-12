@@ -29,11 +29,11 @@ public class LerGrafo {
             Aresta novaAresta = new Aresta(idAresta, Integer.parseInt(auxLinha[2]), 0, v1, v2);
             this.arestas.add(novaAresta);
 
-            if (v1.getAresta(idAresta) == null){
+            if (v1.getArestaById(idAresta) == null){
                 v1.setAresta(novaAresta);
             }
 
-            if (v2.getAresta(idAresta) == null){
+            if (v2.getArestaById(idAresta) == null){
                 v2.setAresta(novaAresta);
             }
 

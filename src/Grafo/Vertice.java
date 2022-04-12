@@ -39,13 +39,17 @@ public class Vertice {
         this.grau = grau;
     }
 
-    public Aresta getAresta(String id) {
+    public Aresta getArestaById(String id) {
         for (Aresta aresta: this.arestas) {
             if (aresta.getId().equals(id)){
                 return aresta;
             }
         }
         return null;
+    }
+
+    public ArrayList<Aresta> getArestas() {
+        return arestas;
     }
 
     public void setAresta(Aresta aresta) {
