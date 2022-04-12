@@ -32,7 +32,7 @@ public class Grafo{
 
     public boolean isRegular (  ){
 
-        return false;
+        return true;
     }
 
     public boolean isNulo (  ){
