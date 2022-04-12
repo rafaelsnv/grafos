@@ -15,6 +15,10 @@ public class Grafo{
     }
 
     public boolean isAdjacente (Vertice v1, Vertice v2 ){
+        for (Aresta vertice1 : v1.getArestas())
+            for (Aresta vertice2 : v2.getArestas())
+                if (vertice1.getId() == vertice2.getId())
+                    return true;
         return false;
     }
 
@@ -31,7 +35,10 @@ public class Grafo{
     }
 
     public boolean isRegular (  ){
-
+        int aux = vertices.get(0).getGrau();
+        for (Vertice v :vertices)
+            if(v.getGrau() != aux)
+                return false;
         return true;
     }
 
@@ -45,7 +52,21 @@ public class Grafo{
     }
 
     public boolean isCompleto (  ){
-        return false;
+            /*for (int i = 0; vertices.size()>i;i++)
+            for (int v = 0; vertices.size()>v;v++)
+                if(isAdjacente(vertices.get(i),vertices.get(v))){}
+                else
+                    return false;
+        return true;*/
+        if(vertices.size()>=3){
+            int n = vertices.size();
+            int qtdArestas = (n*(n-1))/2;
+            if (qtdArestas!=arestas.size())
+                return false;
+            }
+        else
+            return false;
+        return true;
     }
 
     public boolean isConexo (  ){
@@ -53,10 +74,30 @@ public class Grafo{
     }
 
     public boolean isEuleriano (  ){
+        if(isConexo()){
+            int aux=0;
+            for (Vertice v:vertices)
+                if(v.getGrau()%2==0)
+                    aux++;
+            if (aux==vertices.size())
+                return true;
+        }
+        else
+            return false;
         return false;
     }
 
     public boolean isUnicursal (  ){
+        if(isConexo()){
+            int aux=0;
+            for (Vertice v:vertices)
+                if(v.getGrau()==2)
+                    aux++;
+            if (aux==2)
+                return true;
+        }
+        else
+            return false;
         return false;
     }
 
