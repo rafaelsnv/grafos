@@ -3,8 +3,18 @@ package Grafo;
 import java.util.ArrayList;
 
 public class Vertice {
+    private int id;
+    private int grau;
+    private ArrayList<Aresta> arestas;
+
     public Vertice() {
 
+    }
+
+    public Vertice(int id) {
+        this.id = id;
+        this.grau = 0;
+        this.arestas = new ArrayList<>();
     }
 
     public Vertice(int id, int grau, ArrayList<Aresta> arestas) {
@@ -12,11 +22,6 @@ public class Vertice {
         this.grau = grau;
         this.arestas = arestas;
     }
-/** Attributes */
-    /**
-     * 
-     */
-    private int id;
 
     public int getId() {
         return id;
@@ -26,10 +31,6 @@ public class Vertice {
         this.id = id;
     }
 
-    /**
-     * 
-     */
-    private int grau;
     public int getGrau() {
         return grau;
     }
@@ -38,25 +39,18 @@ public class Vertice {
         this.grau = grau;
     }
 
-
-
-
-    /**
-     * 
-     */
-    private ArrayList<Aresta> arestas;
-
-    public ArrayList<Aresta> getArestas() {
-        return arestas;
+    public Aresta getAresta(String id) {
+        for (Aresta aresta: this.arestas) {
+            if (aresta.getId().equals(id)){
+                return aresta;
+            }
+        }
+        return null;
     }
 
-    public void setArestas(ArrayList<Aresta> arestas) {
-        this.arestas = arestas;
+    public void setAresta(Aresta aresta) {
+        this.arestas.add(aresta);
     }
-/**
-     * Operation getGrau
-     *
-     * @return int
-     */
+
 }
 

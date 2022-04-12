@@ -1,10 +1,11 @@
 package Grafo;
 
 public class Aresta{
-    private int id, peso, direcao;
+    private String id;
+    private int peso, direcao;
     private Vertice v1, v2;
 
-    public Aresta(int id, int peso, int direcao, Vertice v1, Vertice v2) {
+    public Aresta(String id, int peso, int direcao, Vertice v1, Vertice v2) {
         this.id = id;
         this.peso = peso;
         this.direcao = direcao;
@@ -12,11 +13,11 @@ public class Aresta{
         this.v2 = v2;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
