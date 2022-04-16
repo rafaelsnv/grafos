@@ -1,5 +1,7 @@
 package Grafo;
 
+import java.util.Objects;
+
 public class Aresta{
     private String id;
     private int peso, direcao;
@@ -51,6 +53,10 @@ public class Aresta{
 
     public void setV2(Vertice v2) {
         this.v2 = v2;
+    }
+
+    public boolean equals(String id) {
+        return this.getId().equals(id);
     }
 }
 
