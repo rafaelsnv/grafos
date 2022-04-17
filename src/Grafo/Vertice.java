@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Vertice {
     private String id;
     private int grau;
-    private ArrayList<Aresta> arestas;
+    private final ArrayList<Aresta> arestas;
 
     public Vertice(String id) {
         this.id = id;
@@ -43,8 +43,10 @@ public class Vertice {
     }
 
     public void setAresta(Aresta aresta) {
-        this.arestas.add(aresta);
-        this.setGrau();
+        if(this.getArestaById(aresta.getId()) == null){
+            this.arestas.add(aresta);
+            this.setGrau();
+        }
     }
 
 }
