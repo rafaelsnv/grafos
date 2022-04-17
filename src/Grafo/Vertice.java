@@ -6,6 +6,9 @@ public class Vertice {
     private String id;
     private int grau;
     private final ArrayList<Aresta> arestas;
+    private int cor;
+    private Vertice pai;
+    private int termino;
 
     public Vertice(String id) {
         this.id = id;
@@ -48,6 +51,30 @@ public class Vertice {
             this.setGrau();
         }
     }
+    public int getCor(){
+        return this.cor;
+    }
+    public boolean setCor(int cor){
+        if(cor >=0&&cor<=2) {
+            this.cor = cor;
+            return true;
+        }
+        else
+            return false;
+    }
 
+    public Vertice getPai(){
+        return this.pai;
+    }
+    public void setPai(Vertice v){
+        this.pai=v;
+    }
+
+    public int getTermino() {
+        return termino;
+    }
+    public void setTermino(int termino) {
+        this.termino = termino;
+    }
 }
 

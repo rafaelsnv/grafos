@@ -22,6 +22,8 @@ public class Grafo{
         return false;
     }
 
+    public ArrayList<Vertice> getVertices() {return vertices;}
+
     public int getGrau ( Vertice v1 ){
         return v1.getGrau();
     }
@@ -72,6 +74,16 @@ public class Grafo{
     public boolean isConexo (  ){
         if(isCompleto())
             return true;
+        for (Vertice v :vertices){
+            v.setCor(0);
+            v.setPai(null);
+        }
+        int componentes = 1;
+        int timestemp = 0;
+        for(Vertice v :vertices){
+            if(v.getCor()==0)
+
+        }
 
         return false;
     }
