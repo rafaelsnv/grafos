@@ -70,6 +70,9 @@ public class Grafo{
     }
 
     public boolean isConexo (  ){
+        if(isCompleto())
+            return true;
+
         return false;
     }
 
@@ -82,8 +85,6 @@ public class Grafo{
             if (aux==vertices.size())
                 return true;
         }
-        else
-            return false;
         return false;
     }
 
