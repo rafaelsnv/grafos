@@ -76,5 +76,9 @@ public class Vertice {
     public void setTermino(int termino) {
         this.termino = termino;
     }
+    public boolean equals (Vertice outro){
+        return this.getId().equals(outro.getId());
+    }
+
 }
 

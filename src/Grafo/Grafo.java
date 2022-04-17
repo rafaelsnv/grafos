@@ -1,23 +1,27 @@
 package Grafo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Grafo{
 
-    private int[][] MATRIZ_ADJACENCIA;
-    private ArrayList<Vertice> vertices;
-    private ArrayList<Aresta> arestas;
+    private final int[][] MATRIZ_ADJACENCIA;
+    private final ArrayList<Vertice> vertices;
+    private final ArrayList<Aresta> arestas;
+    private final ArrayList<Vertice>[] LISTA_ADJACENCIA;
 
-    public Grafo(int[][] MATRIZ_ADJACENCIA, ArrayList<Vertice> vertices, ArrayList<Aresta> arestas) {
+
+    public Grafo(int[][] MATRIZ_ADJACENCIA, ArrayList<Vertice> vertices, ArrayList<Aresta> arestas, ArrayList<Vertice>[] LISTA_ADJACENCIA) {
         this.MATRIZ_ADJACENCIA = MATRIZ_ADJACENCIA;
         this.vertices = vertices;
         this.arestas = arestas;
+        this.LISTA_ADJACENCIA = LISTA_ADJACENCIA;
     }
 
     public boolean isAdjacente (Vertice v1, Vertice v2 ){
         for (Aresta vertice1 : v1.getArestas())
             for (Aresta vertice2 : v2.getArestas())
-                if (vertice1.getId() == vertice2.getId())
+                if (vertice1.getId().equals(vertice2.getId()))
                     return true;
         return false;
     }
@@ -81,8 +85,7 @@ public class Grafo{
         int componentes = 1;
         int timestemp = 0;
         for(Vertice v :vertices){
-            if(v.getCor()==0)
-
+//            if(v.getCor()==0)
         }
 
         return false;
@@ -127,6 +130,24 @@ public class Grafo{
 
     public int getCutVertices (  ){
         return 0;
+    }
+
+    public Vertice getVerticeByID(String id){
+        for (Vertice vertice: this.vertices) {
+            if (vertice.getId().equals(id)){
+                return vertice;
+            }
+        }
+        return null;
+    }
+
+    public String toStringMATRIZ(){
+        StringBuilder matriz = new StringBuilder();
+        for (int[] linha: this.MATRIZ_ADJACENCIA) {
+            matriz.append(Arrays.toString(linha));
+            matriz.append("\n");
+        }
+        return matriz.toString();
     }
 }
 

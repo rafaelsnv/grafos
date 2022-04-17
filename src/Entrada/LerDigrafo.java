@@ -1,22 +1,25 @@
 package Entrada;
 
 import Grafo.*;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-public class LerGrafo {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class LerDigrafo {
 
     private final ArrayList<Vertice> vertices = new ArrayList<>();
     private final ArrayList<Aresta> arestas = new ArrayList<>();
     private int[][] MATRIZ_ADJACENCIA;
-    private ArrayList<Vertice>[] LISTA_ADJACENCIA;
 
-    public void setMATRIZ_ADJACENCIA(int v1, int v2, int peso){
+    public void setMATRIZ_ADJACENCIA(int v1, int v2, int peso, int direcao){
         v1--;
         v2--;
-        this.MATRIZ_ADJACENCIA[v1][v2] = peso;
-        this.MATRIZ_ADJACENCIA[v2][v1] = peso;
+        if (direcao>0)
+            this.MATRIZ_ADJACENCIA[v1][v2] = peso * direcao;
+        else
+            this.MATRIZ_ADJACENCIA[v2][v1] = peso * direcao;
     }
 
     public Vertice getVerticeByID(String id){
@@ -58,11 +61,11 @@ public class LerGrafo {
         }
     }
 
-    public void addAresta(String idAresta, int peso, Vertice v1, Vertice v2){
+    public void addAresta(String idAresta, int peso, int direcao, Vertice v1, Vertice v2){
         Aresta novaAresta;
 
         if (this.getArestaById(idAresta) == null) {
-            novaAresta = new Aresta(idAresta, peso, 0, v1, v2);
+            novaAresta = new Aresta(idAresta, peso, direcao, v1, v2);
             this.arestas.add(novaAresta);
         } else {
             novaAresta = this.getArestaById(idAresta);
@@ -85,31 +88,46 @@ public class LerGrafo {
 
             String v1ID = "v" + auxLinha[0];
             String v2ID = "v" + auxLinha[1];
+            int direcao = Integer.parseInt(auxLinha[3]);
+            int peso = Integer.parseInt(auxLinha[2]);
 
             this.setMATRIZ_ADJACENCIA(
                     Integer.parseInt(auxLinha[0]),
                     Integer.parseInt(auxLinha[1]),
-                    Integer.parseInt(auxLinha[2])
+                    peso,
+                    direcao
             );
 
             this.addVertice(v1ID, v2ID);
 
-            String idAresta = 'v' + auxLinha[0] + 'v' + auxLinha[1];
             Vertice v1 = this.getVerticeByID(v1ID);
             Vertice v2 = this.getVerticeByID(v2ID);
 
-            this.addAresta(
-                    idAresta,
-                    Integer.parseInt(auxLinha[2]),
-                    v1,
-                    v2
-            );
+            if (direcao >0){
+                String idAresta = 'v' + auxLinha[0] + 'v' + auxLinha[1];
+                this.addAresta(
+                        idAresta,
+                        peso,
+                        direcao,
+                        v1,
+                        v2
+                );
+            }else {
+                String idAresta = 'v' + auxLinha[1] + 'v' + auxLinha[0];
+                this.addAresta(
+                        idAresta,
+                        peso,
+                        direcao,
+                        v2,
+                        v1
+                );
+            }
+
 
         }
     }
 
-    public Grafo setGrafo(){
-        return new Grafo(this.MATRIZ_ADJACENCIA, this.vertices, this.arestas, this.LISTA_ADJACENCIA);
+    public Digrafo setDigrafo(){
+        return new Digrafo(MATRIZ_ADJACENCIA, vertices, arestas);
     }
-
 }
