@@ -8,10 +8,10 @@ public class Grafo{
     private final int[][] MATRIZ_ADJACENCIA;
     private final ArrayList<Vertice> vertices;
     private final ArrayList<Aresta> arestas;
-    private final ArrayList<Vertice>[] LISTA_ADJACENCIA;
+    private final ArrayList<Aresta>[] LISTA_ADJACENCIA;
 
 
-    public Grafo(int[][] MATRIZ_ADJACENCIA, ArrayList<Vertice> vertices, ArrayList<Aresta> arestas, ArrayList<Vertice>[] LISTA_ADJACENCIA) {
+    public Grafo(int[][] MATRIZ_ADJACENCIA, ArrayList<Vertice> vertices, ArrayList<Aresta> arestas, ArrayList<Aresta>[] LISTA_ADJACENCIA) {
         this.MATRIZ_ADJACENCIA = MATRIZ_ADJACENCIA;
         this.vertices = vertices;
         this.arestas = arestas;
@@ -149,5 +149,13 @@ public class Grafo{
         }
         return matriz.toString();
     }
+
+    public ArrayList<Aresta>[] getLISTA_ADJACENCIA() {
+        return LISTA_ADJACENCIA;
+    }
+    public ArrayList<Aresta> getLISTA_ADJACENCIA_POR_POSICAO(int num) {
+        return LISTA_ADJACENCIA[num];
+    }
+
 }
 

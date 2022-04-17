@@ -10,6 +10,16 @@ public class Vertice {
     private Vertice pai;
     private int termino;
 
+    public int getDescoberta() {
+        return descoberta;
+    }
+
+    public void setDescoberta(int descoberta) {
+        this.descoberta = descoberta;
+    }
+
+    private int descoberta;
+
     public Vertice(String id) {
         this.id = id;
         this.grau = 0;
