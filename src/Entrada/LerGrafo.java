@@ -10,13 +10,17 @@ public class LerGrafo {
     private final ArrayList<Vertice> vertices = new ArrayList<>();
     private final ArrayList<Aresta> arestas = new ArrayList<>();
     private int[][] MATRIZ_ADJACENCIA;
-    private ArrayList<Vertice>[] LISTA_ADJACENCIA;
+    private ArrayList<Aresta> [] LISTA_ADJACENCIA;
 
     public void setMATRIZ_ADJACENCIA(int v1, int v2, int peso){
         v1--;
         v2--;
         this.MATRIZ_ADJACENCIA[v1][v2] = peso;
         this.MATRIZ_ADJACENCIA[v2][v1] = peso;
+    }
+
+    public void setLISTA_ADJACENCIA(int i, Aresta aresta){
+        this.LISTA_ADJACENCIA[i].add(aresta);
     }
 
     public Vertice getVerticeByID(String id){
@@ -76,12 +80,15 @@ public class LerGrafo {
         BufferedReader br = new BufferedReader(fr);
         int qtdVertices = Integer.parseInt(br.readLine());
         this.MATRIZ_ADJACENCIA = new int[qtdVertices][qtdVertices];
+        this.LISTA_ADJACENCIA = new ArrayList[qtdVertices];
+        for (int i=0; i < qtdVertices; i++){
+            this.LISTA_ADJACENCIA[i] = new ArrayList<Aresta>();
+        }
 
         String linha;
 
         while ((linha = br.readLine()) != null) {
             String[] auxLinha = linha.split("; ");
-
 
             String v1ID = "v" + auxLinha[0];
             String v2ID = "v" + auxLinha[1];
@@ -105,6 +112,7 @@ public class LerGrafo {
                     v2
             );
 
+            this.setLISTA_ADJACENCIA(Integer.parseInt(auxLinha[0]) - 1, this.getArestaById(idAresta));
         }
     }
 

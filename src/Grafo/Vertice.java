@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class Vertice {
     private String id;
     private int grau;
-    private final ArrayList<Aresta> arestas;
+    private  ArrayList<Aresta> arestas;
     private int cor;
     private Vertice pai;
     private int termino;
+
+    public Vertice() {
+
+    }
 
     public int getDescoberta() {
         return descoberta;
@@ -36,6 +40,10 @@ public class Vertice {
 
     public int getGrau() {
         return grau;
+    }
+
+    public void setGrau(int grau) {
+        this.grau = grau;
     }
 
     public void setGrau() {
