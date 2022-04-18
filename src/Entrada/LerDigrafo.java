@@ -12,6 +12,7 @@ public class LerDigrafo {
     private final ArrayList<Vertice> vertices = new ArrayList<>();
     private final ArrayList<Aresta> arestas = new ArrayList<>();
     private int[][] MATRIZ_ADJACENCIA;
+    private ArrayList<Aresta> [] LISTA_ADJACENCIA;
 
     public void setMATRIZ_ADJACENCIA(int v1, int v2, int peso, int direcao){
         v1--;
@@ -20,6 +21,10 @@ public class LerDigrafo {
             this.MATRIZ_ADJACENCIA[v1][v2] = peso * direcao;
         else
             this.MATRIZ_ADJACENCIA[v2][v1] = peso * direcao;
+    }
+
+    public void setLISTA_ADJACENCIA(int i, Aresta aresta) {
+        this.LISTA_ADJACENCIA[i].add(aresta);
     }
 
     public Vertice getVerticeByID(String id){
@@ -79,6 +84,9 @@ public class LerDigrafo {
         BufferedReader br = new BufferedReader(fr);
         int qtdVertices = Integer.parseInt(br.readLine());
         this.MATRIZ_ADJACENCIA = new int[qtdVertices][qtdVertices];
+        for (int i=0; i < qtdVertices; i++){
+            this.LISTA_ADJACENCIA[i] = new ArrayList<Aresta>();
+        }
 
         String linha;
 
@@ -112,6 +120,12 @@ public class LerDigrafo {
                         v1,
                         v2
                 );
+
+                this.setLISTA_ADJACENCIA(
+                        Integer.parseInt(auxLinha[0]) - 1,
+                        this.getArestaById(idAresta)
+                );
+
             }else {
                 String idAresta = 'v' + auxLinha[1] + 'v' + auxLinha[0];
                 this.addAresta(
@@ -121,6 +135,11 @@ public class LerDigrafo {
                         v2,
                         v1
                 );
+
+                this.setLISTA_ADJACENCIA(
+                        Integer.parseInt(auxLinha[1]) - 1,
+                        this.getArestaById(idAresta)
+                );
             }
 
 
@@ -128,6 +147,7 @@ public class LerDigrafo {
     }
 
     public Digrafo setDigrafo(){
-        return new Digrafo(MATRIZ_ADJACENCIA, vertices, arestas);
+        return new Digrafo(this.MATRIZ_ADJACENCIA, this.vertices, this.arestas, this.LISTA_ADJACENCIA);
     }
+
 }

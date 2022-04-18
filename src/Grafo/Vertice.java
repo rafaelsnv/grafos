@@ -9,6 +9,7 @@ public class Vertice {
     private int cor;
     private Vertice pai;
     private int termino;
+    private int descoberta;
 
     public Vertice() {
 
@@ -21,8 +22,6 @@ public class Vertice {
     public void setDescoberta(int descoberta) {
         this.descoberta = descoberta;
     }
-
-    private int descoberta;
 
     public Vertice(String id) {
         this.id = id;
@@ -69,9 +68,16 @@ public class Vertice {
             this.setGrau();
         }
     }
+
+    public void removeAresta(Aresta aresta){
+        this.arestas.remove(aresta);
+        this.grau--;
+    }
+
     public int getCor(){
         return this.cor;
     }
+
     public boolean setCor(int cor){
         if(cor >=0&&cor<=2) {
             this.cor = cor;
@@ -84,6 +90,7 @@ public class Vertice {
     public Vertice getPai(){
         return this.pai;
     }
+
     public void setPai(Vertice v){
         this.pai=v;
     }
@@ -91,12 +98,13 @@ public class Vertice {
     public int getTermino() {
         return termino;
     }
+
     public void setTermino(int termino) {
         this.termino = termino;
     }
+
     public boolean equals (Vertice outro){
         return this.getId().equals(outro.getId());
     }
 
 }
-

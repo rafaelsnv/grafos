@@ -112,7 +112,10 @@ public class LerGrafo {
                     v2
             );
 
-            this.setLISTA_ADJACENCIA(Integer.parseInt(auxLinha[0]) - 1, this.getArestaById(idAresta));
+            this.setLISTA_ADJACENCIA(
+                    Integer.parseInt(auxLinha[0]) - 1,
+                    this.getArestaById(idAresta)
+            );
         }
     }
 
