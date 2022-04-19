@@ -40,7 +40,20 @@ public class Vertice {
     public int getGrau() {
         return grau;
     }
-
+    public boolean hasLoop (){
+        if (this != null){
+            for (Aresta aresta : this.getArestas()) {
+                String v1ID = aresta.getV1().getId();
+                String v2ID = aresta.getV2().getId();
+                if (v1ID.equals(v2ID)){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
     public void setGrau(int grau) {
         this.grau = grau;
     }
@@ -63,9 +76,20 @@ public class Vertice {
     }
 
     public void setAresta(Aresta aresta) {
-        if(this.getArestaById(aresta.getId()) == null){
-            this.arestas.add(aresta);
-            this.setGrau();
+        if (aresta != null){ // Verifica se a aresta passada existe
+            String idAresta = aresta.getId();
+            Aresta arestaVertice = this.getArestaById(idAresta);
+            if( arestaVertice == null){ // Verifica se a aresta passada não existe no vértice
+                String v1ID = aresta.getV1().getId();
+                String v2ID = aresta.getV2().getId();
+                if (!v1ID.equals(v2ID)){ // Condição padrão
+                    this.setGrau();
+                }else {                  // Condição para loop
+                    this.setGrau();
+                    this.setGrau();
+                }
+                this.arestas.add(aresta);
+            }
         }
     }
 

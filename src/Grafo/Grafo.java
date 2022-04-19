@@ -33,9 +33,9 @@ public class Grafo{
 
     public boolean isAdjacente (Vertice v1, Vertice v2 ){
         if (v1 != null && v2 != null)
-        for (Aresta vertice1 : v1.getArestas())
-            for (Aresta vertice2 : v2.getArestas())
-                if (vertice1.getId().equals(vertice2.getId()))
+        for (Aresta aresta1 : v1.getArestas())
+            for (Aresta aresta2 : v2.getArestas())
+                if (aresta1.getId().equals(aresta2.getId()))
                     return true;
         return false;
     }
@@ -80,6 +80,7 @@ public class Grafo{
     }
 
     public boolean isNulo (  ){
+        // Michelle um grafo nulo pode ter loop?
         if (this.vertices.size()>0){
             for (Vertice v :this.vertices) {
                 if (v.getGrau() != 0){
@@ -90,16 +91,26 @@ public class Grafo{
         return true;
     }
 
-    public boolean isCompleto (  ){
-        if(vertices.size()>=3){
-            int n = vertices.size();
-            int qtdArestas = (n*(n-1))/2;
-            if (qtdArestas!=arestas.size())
-                return false;
+    public boolean hasLoop( ){
+        if (!this.isNulo()){
+            for (Vertice vert:this.getVertices()) {
+                return vert.hasLoop();
             }
-        else
-            return false;
-        return true;
+        }
+        return false;
+    }
+
+    public boolean isCompleto (  ){
+        // Verificar se existe loop antes
+        if (!this.hasLoop()){
+            if(vertices.size()>=3){
+                int n = vertices.size();
+                int qtdArestas = (n*(n-1))/2;
+                return qtdArestas == arestas.size();
+            }
+            return true;
+        }
+        return false;
     }
 
     public boolean isConexo (  ){
@@ -112,7 +123,7 @@ public class Grafo{
         int componentes = 1;
         int timestemp = 0;
         for(Vertice v :vertices){
-//            if(v.getCor()==0)
+//            if(v.getCor()==0) terminar
         }
 
         return false;
@@ -121,11 +132,10 @@ public class Grafo{
     public boolean isEuleriano (  ){
         if(isConexo()){
             int aux=0;
-            for (Vertice v:vertices)
+            for (Vertice v:this.vertices)
                 if(v.getGrau()%2==0)
                     aux++;
-            if (aux==vertices.size())
-                return true;
+            return aux == vertices.size();
         }
         return false;
     }
@@ -133,8 +143,8 @@ public class Grafo{
     public boolean isUnicursal (  ){
         if(isConexo()){
             int aux=0;
-            for (Vertice v:vertices)
-                if(v.getGrau()==2)
+            for (Vertice v:this.vertices)
+                if(v.getGrau()%2 != 0)
                     aux++;
             if (aux==2)
                 return true;
@@ -144,7 +154,7 @@ public class Grafo{
         return false;
     }
 
-    public Grafo getComplementar (){
+    public Grafo getComplementar () {
         int qtdVertices = this.getVertices().size();
 
         Grafo complementar = this;
@@ -152,7 +162,7 @@ public class Grafo{
         complementar.setMATRIZ_ADJACENCIA(new int[qtdVertices][qtdVertices]);
         complementar.clearLISTA_ADJACENCIA();
 
-        if (!this.isCompleto()){
+        if (!this.isCompleto() && !this.hasLoop()){
             for (Vertice v1:this.getVertices()) {
                 int pos1 = 0;
                 if (v1.getGrau() != qtdVertices -1){
@@ -190,7 +200,7 @@ public class Grafo{
                 pos1++;
             }
         }
-        return complementar;
+        return null;
     }
 
     public Grafo getAGMPrim ( Vertice v1 ){
@@ -216,10 +226,12 @@ public class Grafo{
     }
 
     public void removeVertice (Vertice v1){
-        for (Aresta aresta : v1.getArestas()) {
-            this.getArestas().remove(aresta);
+        if (v1 != null){
+            for (Aresta aresta : v1.getArestas()) {
+                this.getArestas().remove(aresta);
+            }
+            this.getVertices().remove(v1);
         }
-        this.getVertices().remove(v1);
     }
 
     public Vertice getVerticeByID(String id){
@@ -233,6 +245,7 @@ public class Grafo{
 
     public String toStringMATRIZ(){
         StringBuilder matriz = new StringBuilder();
+        // Percorrer cada linha da matriz e concatenar o vetor na String de retorno
         for (int[] linha: this.MATRIZ_ADJACENCIA) {
             matriz.append(Arrays.toString(linha));
             matriz.append("\n");

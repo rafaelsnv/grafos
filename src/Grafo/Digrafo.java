@@ -50,11 +50,11 @@ public class Digrafo {
     public boolean hasCiclo (  ){
         Digrafo ciclo = this;
         if (this.getVertices().size() > 0 ){
-            ArrayList<Vertice> S = new ArrayList<Vertice>();
+            ArrayList<Vertice> S = new ArrayList<Vertice>(); // Vértices sem arestas de entrada
             ArrayList<Vertice> L = new ArrayList<Vertice>();
 
             for (Vertice v: this.getVertices()) {
-                if (this.getGrauEntrada(v) == 0){
+                if (this.getGrauEntrada(v) == 0){ // Verifica se não existe aresta de entrada
                     S.add(v);
                 }
             }
@@ -63,13 +63,13 @@ public class Digrafo {
             while (S.size() > 0){
                 Vertice v1 = S.get(i);
 
-                L.add(v1);
                 S.remove(i);
+                L.add(v1);
 
                 for (Aresta aresta: v1.getArestas()) {
                     v1.removeAresta(aresta);
                     Vertice v2 = aresta.getV2();
-                    if (this.getGrauEntrada(v2) == 0){
+                    if (this.getGrauEntrada(v2) == 0){ // Verifica se não existe aresta de entrada
                         S.add(v2);
                     }
                 }

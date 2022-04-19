@@ -44,6 +44,8 @@ public class LerGrafo {
     public void addVertice(String v1ID, String v2ID) {
         Vertice v1;
         Vertice v2;
+
+        // Verifica se os 2 vértices não existem no vetor de vértices
         if (this.getVerticeByID(v1ID) == null && this.getVerticeByID(v2ID) == null) {
             v1 = new Vertice(v1ID);
             v2 = new Vertice(v2ID);
@@ -51,10 +53,12 @@ public class LerGrafo {
             this.vertices.add(v1);
             this.vertices.add(v2);
 
+        // Verifica se os v1 não existe no vetor de vértices
         } else if (this.getVerticeByID(v1ID) == null && this.getVerticeByID(v2ID) != null) {
             v1 = new Vertice(v1ID);
             this.vertices.add(v1);
 
+        // Verifica se os v2 não existe no vetor de vértices
         } else if (this.getVerticeByID(v1ID) != null && this.getVerticeByID(v2ID) == null) {
             v2 = new Vertice(v2ID);
             this.vertices.add(v2);
@@ -65,6 +69,7 @@ public class LerGrafo {
     public void addAresta(String idAresta, int peso, Vertice v1, Vertice v2){
         Aresta novaAresta;
 
+        // Verifica se a aresta passada não existe no vetor de arestas
         if (this.getArestaById(idAresta) == null) {
             novaAresta = new Aresta(idAresta, peso, 0, v1, v2);
             this.arestas.add(novaAresta);
