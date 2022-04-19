@@ -2,13 +2,14 @@ package Grafo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import Algoritimos.*;
 
 public class Grafo{
 
     private int[][] MATRIZ_ADJACENCIA;
-    private ArrayList<Vertice> vertices;
-    private ArrayList<Aresta> arestas;
-    private ArrayList<Aresta>[] LISTA_ADJACENCIA;
+    private final ArrayList<Vertice> vertices;
+    private final ArrayList<Aresta> arestas;
+    private final ArrayList<Aresta>[] LISTA_ADJACENCIA;
 
 
     public Grafo() {
@@ -114,19 +115,14 @@ public class Grafo{
     }
 
     public boolean isConexo (  ){
-        if(isCompleto())
-            return true;
-        for (Vertice v :vertices){
-            v.setCor(0);
-            v.setPai(null);
+        if(!isCompleto()){
+            DFS dfs = new DFS(this);
+            int componentes = dfs.DFSConexo();
+            if (componentes == 1){
+                return true;
+            }
         }
-        int componentes = 1;
-        int timestemp = 0;
-        for(Vertice v :vertices){
-//            if(v.getCor()==0) terminar
-        }
-
-        return false;
+        return true;
     }
 
     public boolean isEuleriano (  ){
@@ -146,12 +142,10 @@ public class Grafo{
             for (Vertice v:this.vertices)
                 if(v.getGrau()%2 != 0)
                     aux++;
-            if (aux==2)
-                return true;
+            return aux == 2;
         }
         else
             return false;
-        return false;
     }
 
     public Grafo getComplementar () {

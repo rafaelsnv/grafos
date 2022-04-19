@@ -48,40 +48,33 @@ public class Digrafo {
     }
 
     public boolean hasCiclo (  ){
-        Digrafo ciclo = this;
         if (this.getVertices().size() > 0 ){
-            ArrayList<Vertice> S = new ArrayList<Vertice>(); // Vértices sem arestas de entrada
-            ArrayList<Vertice> L = new ArrayList<Vertice>();
+            ArrayList<Vertice> listaOrdenada = new ArrayList<Vertice>(); // Lista vazia que irá conter os elementos ordenados
+            ArrayList<Vertice> verticesSemEntrada = new ArrayList<Vertice>(); // Vértices sem arestas de entrada
 
             for (Vertice v: this.getVertices()) {
                 if (this.getGrauEntrada(v) == 0){ // Verifica se não existe aresta de entrada
-                    S.add(v);
+                    verticesSemEntrada.add(v);
                 }
             }
 
             int i = 0;
-            while (S.size() > 0){
-                Vertice v1 = S.get(i);
+            while (verticesSemEntrada.size() > 0){
+                Vertice v1 = verticesSemEntrada.get(i);
 
-                S.remove(i);
-                L.add(v1);
+                verticesSemEntrada.remove(i);
+                listaOrdenada.add(v1);
 
                 for (Aresta aresta: v1.getArestas()) {
                     v1.removeAresta(aresta);
                     Vertice v2 = aresta.getV2();
                     if (this.getGrauEntrada(v2) == 0){ // Verifica se não existe aresta de entrada
-                        S.add(v2);
+                        verticesSemEntrada.add(v2);
                     }
                 }
                 i++;
             }
-
-            ArrayList e = new ArrayList<>();
-            if (e.size() == 0 ){
-                return false;
-            }
-            else return true;
-
+            return this.getVertices().size() > 0; // Se o grafo ainda possui arestas, existe pelo menos 1 ciclo
         }
         return false;
     }

@@ -10,23 +10,19 @@ public class Vertice {
     private Vertice pai;
     private int termino;
     private int descoberta;
+    private int componente;
 
-    public Vertice() {
-
+    public Vertice(String id) {
+        this.id = id;
+        this.grau = 0;
+        this.arestas = new ArrayList<>();
     }
-
     public int getDescoberta() {
         return descoberta;
     }
 
     public void setDescoberta(int descoberta) {
         this.descoberta = descoberta;
-    }
-
-    public Vertice(String id) {
-        this.id = id;
-        this.grau = 0;
-        this.arestas = new ArrayList<>();
     }
 
     public String getId() {
@@ -40,20 +36,18 @@ public class Vertice {
     public int getGrau() {
         return grau;
     }
+
     public boolean hasLoop (){
         if (this != null){
             for (Aresta aresta : this.getArestas()) {
                 String v1ID = aresta.getV1().getId();
                 String v2ID = aresta.getV2().getId();
-                if (v1ID.equals(v2ID)){
-                    return true;
-                }else {
-                    return false;
-                }
+                return v1ID.equals(v2ID);
             }
         }
         return false;
     }
+
     public void setGrau(int grau) {
         this.grau = grau;
     }
@@ -103,7 +97,7 @@ public class Vertice {
     }
 
     public boolean setCor(int cor){
-        if(cor >=0&&cor<=2) {
+        if(cor >=0 &&cor <=2) {
             this.cor = cor;
             return true;
         }
@@ -131,4 +125,11 @@ public class Vertice {
         return this.getId().equals(outro.getId());
     }
 
+    public int getComponente() {
+        return componente;
+    }
+
+    public void setComponente(int componente) {
+        this.componente = componente;
+    }
 }
