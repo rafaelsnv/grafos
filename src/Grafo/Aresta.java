@@ -2,7 +2,7 @@ package Grafo;
 
 import java.util.Objects;
 
-public class Aresta{
+public class Aresta implements Comparable<Aresta> {
     private String id;
     private int peso, direcao;
     private Vertice v1, v2;
@@ -57,6 +57,11 @@ public class Aresta{
 
     public boolean equals(String id) {
         return this.getId().equals(id);
+    }
+
+    @Override
+    public int compareTo(Aresta outra) {
+        return this.peso - outra.peso;
     }
 }
 

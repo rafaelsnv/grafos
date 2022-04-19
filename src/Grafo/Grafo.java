@@ -12,12 +12,12 @@ public class Grafo{
     private final ArrayList<Aresta>[] LISTA_ADJACENCIA;
 
 
-    public Grafo() {
-        this.MATRIZ_ADJACENCIA = new int[1][1];
+    public Grafo(int numVertices) {
+        this.MATRIZ_ADJACENCIA = new int[numVertices][numVertices];
         this.vertices = new ArrayList<Vertice>();
         this.arestas = new ArrayList<Aresta>();
-        this.LISTA_ADJACENCIA = new ArrayList[1];
-        for (int v = 0; v < 1; v++)
+        this.LISTA_ADJACENCIA = new ArrayList[numVertices];
+        for (int v = 0; v < numVertices; v++)
             LISTA_ADJACENCIA[v] = new ArrayList<>();
     }
 
@@ -200,8 +200,10 @@ public class Grafo{
     public Grafo getAGMPrim ( Vertice v1 ){
         return null;
     }
-    public Grafo getAGMKruskal ( Vertice v1 ){
-        return null;
+
+    public Grafo getAGMKruskal ( ){
+        Kruskal kruskal = new Kruskal(this);
+        return kruskal.buildAGM();
     }
 
     public int getCutVertices (){
@@ -272,5 +274,15 @@ public class Grafo{
     public void setLISTA_ADJACENCIA(int i, Aresta aresta) {
         this.LISTA_ADJACENCIA[i].add(aresta);
     }
+
+    public Aresta getArestaById(String id){
+        for (Aresta aresta: this.arestas) {
+            if (aresta.getId().equals(id)){
+                return aresta;
+            }
+        }
+        return null;
+    }
+
 }
 

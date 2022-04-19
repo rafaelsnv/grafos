@@ -5,18 +5,22 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws IOException {
-        LerDigrafo leitorDigrafo = new LerDigrafo();
-        leitorDigrafo.lerEntrada("entradas/digrafo.txt");
-        Digrafo exemploDigrafo = leitorDigrafo.setDigrafo();
+//        LerDigrafo leitorDigrafo = new LerDigrafo();
+//        leitorDigrafo.lerEntrada("entradas/digrafo.txt");
+//        Digrafo exemploDigrafo = leitorDigrafo.setDigrafo();
+//
+//        System.out.println(
+//                "DIGRAFO\n" +
+//                exemploDigrafo.toStringMATRIZ()
+//        );
 
-        System.out.println(
-                "DIGRAFO\n" +
-                exemploDigrafo.toStringMATRIZ()
-        );
+        LerGrafo leitorGrafo = new LerGrafo();
+        leitorGrafo.lerEntrada("entradas/grafo.txt");
+        Grafo exemploGrafo = leitorGrafo.setGrafo();
+        Grafo agm = exemploGrafo.getAGMKruskal();
 
-//        LerGrafo leitorGrafo = new LerGrafo();
-//        leitorGrafo.lerEntrada("entradas/grafo.txt");
-//        Grafo exemploGrafo = leitorGrafo.setGrafo();
+        System.out.println(agm.toStringMATRIZ());
+
 //
 //        Vertice v1 = exemploGrafo.getVerticeByID("v1");
 //        Vertice v2 = exemploGrafo.getVerticeByID("v2");
