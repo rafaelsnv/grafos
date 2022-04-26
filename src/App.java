@@ -5,45 +5,55 @@ import java.io.IOException;
 
 public class App {
     public static void main(String[] args) throws IOException {
-//        LerDigrafo leitorDigrafo = new LerDigrafo();
-//        leitorDigrafo.lerEntrada("entradas/digrafo.txt");
-//        Digrafo exemploDigrafo = leitorDigrafo.setDigrafo();
-//
-//        System.out.println(
-//                "DIGRAFO\n" +
-//                exemploDigrafo.toStringMATRIZ()
-//        );
+//       Digrafo
+        LerDigrafo leitorDigrafo = new LerDigrafo();
+        leitorDigrafo.lerEntrada("entradas/aciclico.txt");
+//        leitorDigrafo.lerEntrada("entradas/ciclico.txt");
+        Digrafo exemploDigrafo = leitorDigrafo.setDigrafo();
+        Vertice vEntrada = exemploDigrafo.getVerticeByID("v1");
+        Vertice vSaida = exemploDigrafo.getVerticeByID("v2");
 
+        System.out.println(
+                "DIGRAFO\n" +
+                exemploDigrafo.toStringMATRIZ() +
+                        "getGrauEntrada(vEntrada): " + exemploDigrafo.getGrauEntrada(vEntrada) +
+                        "\ngetGrauSaida(vSaida): " + exemploDigrafo.getGrauSaida(vSaida)
+//                        "\nhasCiclo(): " + exemploDigrafo.hasCiclo()
+        );
+
+        // Grafo
         LerGrafo leitorGrafo = new LerGrafo();
-        leitorGrafo.lerEntrada("entradas/grafo.txt");
+//        leitorGrafo.lerEntrada("entradas/completo.txt");
+//        leitorGrafo.lerEntrada("entradas/nulo.txt");
+//        leitorGrafo.lerEntrada("entradas/pendente.txt");
+        leitorGrafo.lerEntrada("entradas/completo.txt");
+//        leitorGrafo.lerEntrada("entradas/unicursal.txt");
         Grafo exemploGrafo = leitorGrafo.setGrafo();
         Grafo agm = exemploGrafo.getAGMKruskal();
+//        Grafo complementar = exemploGrafo.getComplementar();
 
-        System.out.println(agm.toStringMATRIZ());
+        Vertice v1 = exemploGrafo.getVerticeByID("v1");
+        Vertice v2 = exemploGrafo.getVerticeByID("v2");
+        Vertice v3 = exemploGrafo.getVerticeByID("v3");
 
-//
-//        Vertice v1 = exemploGrafo.getVerticeByID("v1");
-//        Vertice v2 = exemploGrafo.getVerticeByID("v2");
-//        Vertice v3 = exemploGrafo.getVerticeByID("v3");
-//
-//        System.out.println(
-//                "GRAFO\n" +
-//                        exemploGrafo.toStringMATRIZ() +
-//                        "\nisAdjacente(v1, v2): "   + exemploGrafo.isAdjacente(v1, v2) +
-//                        "\ngetGrau(v1): "           + exemploGrafo.getGrau(v1) +
-//                        "\nisIsolado(v1): "         + exemploGrafo.isIsolado(v1) +
-//                        "\nisPendente(v1): "        + exemploGrafo.isPendente(v1) +
-//                        "\nisRegular(): "           + exemploGrafo.isRegular() +
-//                        "\nisNulo(): "              + exemploGrafo.isNulo() +
-//                        "\nisCompleto(): "          + exemploGrafo.isCompleto() +
-////                        "\nisConexo(): "            + exemploGrafo.isConexo() +           // Felipe está implementando
-////                        "\nisEuleriano(): "         + exemploGrafo.isEuleriano() +        // Depende do isConexo
-////                        "\nisUnicursal(): "         + exemploGrafo.isUnicursal() +        // Depende do isConexo
-//                        "\n\nCOMPLEMENTAR\n"        + exemploGrafo.getComplementar().toStringMATRIZ()
-////                        "\ngetAGMPrim(): "          + exemploGrafo.getAGMPrim(v3) +
-////                        "\ngetAGMKruskal(): "       + exemploGrafo.getAGMKruskal(v3) +
-////                        "\ngetCutVertices(): "      + exemploGrafo.getCutVertices()       // Depende do isConexo
-//        );
+        System.out.println(
+                "\n\nGRAFO\n" +
+                        exemploGrafo.toStringMATRIZ() +
+                        "isAdjacente(v1, v2): "   + exemploGrafo.isAdjacente(v1, v2) +
+                        "\ngetGrau(v1): "           + exemploGrafo.getGrau(v1) +
+                        "\nisIsolado(v1): "         + exemploGrafo.isIsolado(v1) +
+                        "\nisPendente(v1): "        + exemploGrafo.isPendente(v1) +
+                        "\nisRegular(): "           + exemploGrafo.isRegular() +
+                        "\nisNulo(): "              + exemploGrafo.isNulo() +
+                        "\nisCompleto(): "          + exemploGrafo.isCompleto() +
+//                        "\nisConexo(): "            + exemploGrafo.isConexo() +         // Depende do DFS
+                        "\nisEuleriano(): "         + exemploGrafo.isEuleriano() +        // Depende do isConexo
+                        "\nisUnicursal(): "         + exemploGrafo.isUnicursal() +        // Depende do isConexo
+//                        "\n\nCOMPLEMENTAR\n"        + complementar.toStringMATRIZ() +
+//                        "\ngetAGMPrim(): "          + exemploGrafo.getAGMPrim(v3) +
+                        "\n\ngetAGMKruskal(): \n"       + agm.toStringMATRIZ()
+//                        "\ngetCutVertices(): "      + exemploGrafo.getCutVertices()       // Depende do isConexo
+        );
 //
 //        LerGrafo leitorIncompleto = new LerGrafo();
 //        leitorIncompleto.lerEntrada("entradas/grafoIncompleto.txt");

@@ -88,5 +88,14 @@ public class Digrafo {
         return matriz.toString();
     }
 
+    public Vertice getVerticeByID(String id){
+        for (Vertice vertice: this.vertices) {
+            if (vertice.getId().equals(id)){
+                return vertice;
+            }
+        }
+        return null;
+    }
+
 }
 

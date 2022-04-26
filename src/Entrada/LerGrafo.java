@@ -93,7 +93,7 @@ public class LerGrafo {
         String linha;
 
         while ((linha = br.readLine()) != null) {
-            String[] auxLinha = linha.split("; ");
+            String[] auxLinha = linha.split(";");
 
             String v1ID = "v" + auxLinha[0];
             String v2ID = "v" + auxLinha[1];

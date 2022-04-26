@@ -103,14 +103,13 @@ public class Grafo{
 
     public boolean isCompleto (  ){
         // Verificar se existe loop antes
-        if (!this.hasLoop()){
+//        if (!this.hasLoop()){
             if(vertices.size()>=3){
                 int n = vertices.size();
                 int qtdArestas = (n*(n-1))/2;
                 return qtdArestas == arestas.size();
             }
-            return true;
-        }
+//        }
         return false;
     }
 
@@ -121,31 +120,52 @@ public class Grafo{
             if (componentes == 1){
                 return true;
             }
+            return false;
         }
         return true;
     }
 
+//    public boolean isConexo(){
+//        ArrayList<Vertice> vetorVertices = this.getVertices();
+//
+//        for (int i = 0; i < vetorVertices.size(); i++) {
+//            Vertice v1 = vetorVertices.get(i);
+//
+//            for (int j = 0; j < vetorVertices.size() ; j++) {
+//
+//                Vertice v2 = vetorVertices.get(j);
+//                if (v1.getId()!=v2.getId()){
+//                    if (!isAdjacente(v1,v2)){
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//
+//
+//    }
+
     public boolean isEuleriano (  ){
-        if(isConexo()){
+//        if(isConexo()){
             int aux=0;
             for (Vertice v:this.vertices)
                 if(v.getGrau()%2==0)
                     aux++;
             return aux == vertices.size();
-        }
-        return false;
+//        }
+//        return false;
     }
 
     public boolean isUnicursal (  ){
-        if(isConexo()){
+//        if(isConexo()){
             int aux=0;
             for (Vertice v:this.vertices)
                 if(v.getGrau()%2 != 0)
                     aux++;
             return aux == 2;
-        }
-        else
-            return false;
+//        }
+//        else
+//            return false;
     }
 
     public Grafo getComplementar () {
@@ -193,6 +213,7 @@ public class Grafo{
                 }
                 pos1++;
             }
+            return complementar;
         }
         return null;
     }

@@ -84,6 +84,7 @@ public class LerDigrafo {
         BufferedReader br = new BufferedReader(fr);
         int qtdVertices = Integer.parseInt(br.readLine());
         this.MATRIZ_ADJACENCIA = new int[qtdVertices][qtdVertices];
+        this.LISTA_ADJACENCIA = new ArrayList[qtdVertices];
         for (int i=0; i < qtdVertices; i++){
             this.LISTA_ADJACENCIA[i] = new ArrayList<Aresta>();
         }
@@ -91,7 +92,7 @@ public class LerDigrafo {
         String linha;
 
         while ((linha = br.readLine()) != null) {
-            String[] auxLinha = linha.split("; ");
+            String[] auxLinha = linha.split(";");
 
 
             String v1ID = "v" + auxLinha[0];
