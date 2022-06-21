@@ -1,16 +1,14 @@
 package Grafo;
 
-import java.util.Objects;
-
 public class Aresta implements Comparable<Aresta> {
     private String id;
-    private int peso, direcao;
+    private int peso;
     private Vertice v1, v2;
+    private Cor cor;
 
-    public Aresta(String id, int peso, int direcao, Vertice v1, Vertice v2) {
+    public Aresta(String id, int peso, Vertice v1, Vertice v2) {
         this.id = id;
         this.peso = peso;
-        this.direcao = direcao;
         this.v1 = v1;
         this.v2 = v2;
     }
@@ -31,14 +29,6 @@ public class Aresta implements Comparable<Aresta> {
         this.peso = peso;
     }
 
-    public int getDirecao() {
-        return this.direcao;
-    }
-
-    public void setDirecao(int direcao) {
-        this.direcao = direcao;
-    }
-
     public Vertice getV1() {
         return this.v1;
     }
@@ -53,6 +43,14 @@ public class Aresta implements Comparable<Aresta> {
 
     public void setV2(Vertice v2) {
         this.v2 = v2;
+    }
+
+    public Cor getCor() {
+        return cor;
+    }
+
+    public void setCor(Cor cor) {
+        this.cor = cor;
     }
 
     public boolean equals(String id) {

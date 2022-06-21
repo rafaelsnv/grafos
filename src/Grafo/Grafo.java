@@ -2,257 +2,60 @@ package Grafo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import Algoritimos.*;
 
 public class Grafo{
 
     private int[][] MATRIZ_ADJACENCIA;
-    private final ArrayList<Vertice> vertices;
-    private final ArrayList<Aresta> arestas;
+    private final ArrayList<Vertice> listaVertices;
+    private final ArrayList<Vertice> listaPeriodos;
+    private final ArrayList<Aresta> listaDisciplinas;
     private final ArrayList<Aresta>[] LISTA_ADJACENCIA;
-
-
-    public Grafo(int numVertices) {
-        this.MATRIZ_ADJACENCIA = new int[numVertices][numVertices];
-        this.vertices = new ArrayList<Vertice>();
-        this.arestas = new ArrayList<Aresta>();
-        this.LISTA_ADJACENCIA = new ArrayList[numVertices];
-        for (int v = 0; v < numVertices; v++)
-            LISTA_ADJACENCIA[v] = new ArrayList<>();
-    }
+    private final ArrayList<Cor> listaCores;
 
     public Grafo(
             int[][] MATRIZ_ADJACENCIA,
-            ArrayList<Vertice> vertices,
-            ArrayList<Aresta> arestas,
+            ArrayList<Vertice> listaVertices,
+            ArrayList<Aresta> listaDisciplinas,
             ArrayList<Aresta>[] LISTA_ADJACENCIA){
         this.MATRIZ_ADJACENCIA = MATRIZ_ADJACENCIA;
-        this.vertices = vertices;
-        this.arestas = arestas;
-        this.LISTA_ADJACENCIA = LISTA_ADJACENCIA;
-    }
+        this.listaVertices = listaVertices;
 
-    public boolean isAdjacente (Vertice v1, Vertice v2 ){
-        if (v1 != null && v2 != null)
-        for (Aresta aresta1 : v1.getArestas())
-            for (Aresta aresta2 : v2.getArestas())
-                if (aresta1.getId().equals(aresta2.getId()))
-                    return true;
-        return false;
+        this.listaPeriodos = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            this.listaPeriodos.add(this.listaVertices.get(i));
+        }
+
+        this.listaDisciplinas = listaDisciplinas;
+        this.LISTA_ADJACENCIA = LISTA_ADJACENCIA;
+        this.listaCores = new ArrayList<>();
+        this.listaCores.add(Cor.VERMELHO);
+        this.listaCores.add(Cor.AMARELO);
+        this.listaCores.add(Cor.VERDE);
+        this.listaCores.add(Cor.AZUL);
+        this.listaCores.add(Cor.ROXO);
     }
 
     public Vertice getVertice(int i){
-        return this.getVertices().get(i);
+        return this.getListaVertices().get(i);
     }
 
-    public ArrayList<Aresta> getArestas() {
-        return arestas;
+    public ArrayList<Aresta> getListaDisciplinas() {
+        return listaDisciplinas;
     }
 
-    public ArrayList<Vertice> getVertices() {return vertices;}
-
-    public int getGrau ( Vertice v1 ){
-        if (!this.isNulo())
-            return v1.getGrau();
-        return 0;
-    }
-
-    public boolean isIsolado ( Vertice v1 ){
-        if (!this.isNulo())
-            return v1.getGrau() == 0;
-        return true;
-    }
-
-    public boolean isPendente ( Vertice v1 ){
-        if (!this.isNulo())
-            return v1.getGrau() == 1;
-        return false;
-    }
-
-    public boolean isRegular (  ){
-        if (!this.isNulo()) {
-            int aux = this.vertices.get(0).getGrau();
-            for (Vertice v :vertices)
-                if(v.getGrau() != aux)
-                    return false;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isNulo (  ){
-        // Michelle um grafo nulo pode ter loop?
-        if (this.vertices.size()>0){
-            for (Vertice v :this.vertices) {
-                if (v.getGrau() != 0){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public boolean hasLoop( ){
-        if (!this.isNulo()){
-            for (Vertice vert:this.getVertices()) {
-                return vert.hasLoop();
-            }
-        }
-        return false;
-    }
-
-    public boolean isCompleto (  ){
-        // Verificar se existe loop antes
-//        if (!this.hasLoop()){
-            if(vertices.size()>=3){
-                int n = vertices.size();
-                int qtdArestas = (n*(n-1))/2;
-                return qtdArestas == arestas.size();
-            }
-//        }
-        return false;
-    }
-
-    public boolean isConexo (  ){
-        if(!isCompleto()){
-            DFS dfs = new DFS(this);
-            int componentes = dfs.DFSConexo();
-            if (componentes == 1){
-                return true;
-            }
-            return false;
-        }
-        return true;
-    }
-
-//    public boolean isConexo(){
-//        ArrayList<Vertice> vetorVertices = this.getVertices();
-//
-//        for (int i = 0; i < vetorVertices.size(); i++) {
-//            Vertice v1 = vetorVertices.get(i);
-//
-//            for (int j = 0; j < vetorVertices.size() ; j++) {
-//
-//                Vertice v2 = vetorVertices.get(j);
-//                if (v1.getId()!=v2.getId()){
-//                    if (!isAdjacente(v1,v2)){
-//                        return false;
-//                    }
-//                }
-//            }
-//        }
-//
-//
-//    }
-
-    public boolean isEuleriano (  ){
-//        if(isConexo()){
-            int aux=0;
-            for (Vertice v:this.vertices)
-                if(v.getGrau()%2==0)
-                    aux++;
-            return aux == vertices.size();
-//        }
-//        return false;
-    }
-
-    public boolean isUnicursal (  ){
-//        if(isConexo()){
-            int aux=0;
-            for (Vertice v:this.vertices)
-                if(v.getGrau()%2 != 0)
-                    aux++;
-            return aux == 2;
-//        }
-//        else
-//            return false;
-    }
-
-    public Grafo getComplementar () {
-        int qtdVertices = this.getVertices().size();
-
-        Grafo complementar = this;
-        complementar.getArestas().clear();
-        complementar.setMATRIZ_ADJACENCIA(new int[qtdVertices][qtdVertices]);
-        complementar.clearLISTA_ADJACENCIA();
-
-        if (!this.isCompleto() && !this.hasLoop()){
-            for (Vertice v1:this.getVertices()) {
-                int pos1 = 0;
-                if (v1.getGrau() != qtdVertices -1){
-                    v1.setGrau(0);
-                    for (int pos2 = pos1 + 1; pos2 < qtdVertices; pos2++) {
-                        Vertice v2 = this.getVertice(pos2);
-                        if(!this.isAdjacente(v1, v2)){
-                            String v1ID = v1.getId();
-                            String v2ID = v2.getId();
-
-                            Aresta arestaComp = new Aresta(
-                                    v1ID + v2ID,
-                                    1,
-                                    0,
-                                    v1,
-                                    v2
-                            );
-
-                            complementar.getArestas().add(arestaComp);
-
-                            complementar.getVerticeByID(v1ID).getArestas().clear();
-                            complementar.getVerticeByID(v1ID).getArestas().add(arestaComp);
-                            v1.setGrau();
-
-                            complementar.getVerticeByID(v2ID).getArestas().clear();
-                            complementar.getVerticeByID(v2ID).getArestas().add(arestaComp);
-                            v2.setGrau();
-
-                            complementar.setMATRIZ_ADJACENCIA(pos1,pos2,1);
-                            complementar.setLISTA_ADJACENCIA(pos1, arestaComp);
-                            complementar.setLISTA_ADJACENCIA(pos2, arestaComp);
-                        }
-                    }
-                }
-                pos1++;
-            }
-            return complementar;
-        }
-        return null;
-    }
-
-    public Grafo getAGMPrim ( Vertice v1 ){
-        return null;
-    }
-
-    public Grafo getAGMKruskal ( ){
-        Kruskal kruskal = new Kruskal(this);
-        return kruskal.buildAGM();
-    }
-
-    public int getCutVertices (){
-        Grafo cutGrafo = this;
-        int cutVertices = 0;
-
-        for (Vertice v:cutGrafo.getVertices()) {
-            cutGrafo.removeVertice(v);
-
-            if (!cutGrafo.isConexo()){
-                cutVertices++;
-            }
-            cutGrafo = this;
-        }
-        return cutVertices;
-    }
+    public ArrayList<Vertice> getListaVertices() {return listaVertices;}
 
     public void removeVertice (Vertice v1){
         if (v1 != null){
             for (Aresta aresta : v1.getArestas()) {
-                this.getArestas().remove(aresta);
+                this.getListaDisciplinas().remove(aresta);
             }
-            this.getVertices().remove(v1);
+            this.getListaVertices().remove(v1);
         }
     }
 
     public Vertice getVerticeByID(String id){
-        for (Vertice vertice: this.vertices) {
+        for (Vertice vertice: this.listaVertices) {
             if (vertice.getId().equals(id)){
                 return vertice;
             }
@@ -297,12 +100,88 @@ public class Grafo{
     }
 
     public Aresta getArestaById(String id){
-        for (Aresta aresta: this.arestas) {
+        for (Aresta aresta: this.listaDisciplinas) {
             if (aresta.getId().equals(id)){
                 return aresta;
             }
         }
         return null;
+    }
+
+    private void resetCores (){
+        for (Cor cor:this.listaCores) {
+            if (cor.getQtdUsos() == 2){
+                cor.resetQtdUso();
+            }
+        }
+    }
+
+    public void colorirArestas(){
+
+//      Pinta arestas de peso 2
+        for (Vertice periodo:this.listaPeriodos) {
+            for (int i = 0; i < this.listaCores.size(); i++) {
+                for (Aresta disciplina:periodo.getArestas()) {
+                    int pesoAresta = disciplina.getPeso();
+                    Cor cor = this.listaCores.get(i);
+                    if (cor.getQtdUsos() == 0 && pesoAresta == 2 && disciplina.getCor() == null){
+                        disciplina.setCor(cor);
+                        cor.setQtdUsos(pesoAresta);
+                        if (i<4){
+                            i++;
+                        }
+                    }else if ( disciplina.getCor() == null && pesoAresta != 2){
+                        disciplina.setCor(cor);
+                        cor.setQtdUsos(pesoAresta);
+                        if (cor.getQtdUsos() == 2){
+                            if (i<4){
+                                i++;
+                            }
+                        }
+                    }
+                }
+            }
+            this.resetCores();
+        }
+
+//      Pinta arestas de peso 1
+//        for (Vertice periodo:this.listaPeriodos) {
+//            for (int j = 0; j < this.listaCores.size(); j++) {
+//                for (Aresta aresta:periodo.getArestas()) {
+//                    int pesoAresta = aresta.getPeso();
+//                    if (pesoAresta == 1){
+//                        Cor cor = listaCores.get(j);
+//                        if (cor.getQtdUsos() < 2){
+//                            aresta.setCor(cor);
+//                            cor.setQtdUsos(pesoAresta);
+//                        }
+//                    }
+//                }
+//            }
+//        }
+    }
+
+    public String relatorio(){
+        StringBuilder horarioPeriodo = new StringBuilder();
+
+        for (Vertice periodo:this.listaPeriodos) {
+            int numPeriodo = this.listaPeriodos.indexOf(periodo) + 1;
+            String strPeriodo = numPeriodo + " º PERÍODO\n";
+            horarioPeriodo.append(strPeriodo);
+            StringBuilder disciplinaColorida = new StringBuilder();
+            for (Aresta disciplina:periodo.getArestas()) {
+                String disciplinaNome = disciplina.getId();
+                disciplinaColorida.append(disciplinaNome);
+                disciplinaColorida.append(": ");
+                String cor = disciplina.getCor().name();
+                disciplinaColorida.append(cor);
+                disciplinaColorida.append("\n");
+            }
+            horarioPeriodo.append(disciplinaColorida);
+            horarioPeriodo.append("\n");
+
+        }
+        return horarioPeriodo.toString();
     }
 
 }
