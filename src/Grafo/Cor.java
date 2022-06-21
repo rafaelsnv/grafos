@@ -5,7 +5,8 @@ public enum Cor {
     AMARELO(0),
     VERDE(0),
     AZUL(0),
-    ROXO(0);
+    ROXO(0),
+    PRETO(0);
 
     private int qtdUsos;
 

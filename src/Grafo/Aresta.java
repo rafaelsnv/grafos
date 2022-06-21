@@ -61,5 +61,17 @@ public class Aresta implements Comparable<Aresta> {
     public int compareTo(Aresta outra) {
         return this.peso - outra.peso;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder disciplina = new StringBuilder();
+        disciplina.append(this.getId());
+        disciplina.append(": ").append(this.getPeso()).append(" Horário(s)");
+        disciplina.append(" - ( ");
+        disciplina.append(this.getV1());
+        disciplina.append(" )\n");
+
+        return disciplina.toString();
+    }
 }
 

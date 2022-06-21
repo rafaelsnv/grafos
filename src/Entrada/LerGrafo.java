@@ -94,8 +94,14 @@ public class LerGrafo {
             String disciplina = auxLinha[0];
             String professor = auxLinha[1];
             String periodo = auxLinha[2];
-            String cargaHoraria = auxLinha[3];
-            int numEncontros = Integer.parseInt(cargaHoraria) / 40;
+            String cargaHoraria;
+            int numEncontros;
+            if (auxLinha.length == 4){
+                cargaHoraria = auxLinha[3];
+                numEncontros = Integer.parseInt(cargaHoraria) / 40;
+            }else {
+                numEncontros = 1;
+            }
 
             this.addProf(professor);
             this.addPeriodo(periodo);
@@ -112,14 +118,14 @@ public class LerGrafo {
                 );
             }else {
                 this.addAresta(
-                        disciplina.concat(" 2"),
+                        disciplina.concat(" A"),
                         2,
                         vProf,
                         vPeriodo
                 );
 
                 this.addAresta(
-                        disciplina.concat(" 1"),
+                        disciplina.concat(" B"),
                         1,
                         vProf,
                         vPeriodo

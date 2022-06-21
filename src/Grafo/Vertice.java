@@ -63,4 +63,11 @@ public class Vertice {
         return this.getId().equals(outro.getId());
     }
 
+    @Override
+    public String toString(){
+        StringBuilder vertice = new StringBuilder();
+        vertice.append(this.getId());
+        return vertice.toString();
+    }
+
 }
