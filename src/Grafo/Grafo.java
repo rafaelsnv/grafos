@@ -175,11 +175,33 @@ public class Grafo{
             horarioProf.append("\n");
             ArrayList<Aresta> discLecionadas = prof.getArestas();
             for (Aresta disciplina:discLecionadas) {
-                String nomeDisc = disciplina.getId();
+                StringBuilder disciplinaStr = new StringBuilder();
                 String corDisc = disciplina.getCor().name();
-                horarioProf.append(nomeDisc);
-                horarioProf.append(": ");
-                horarioProf.append(corDisc);
+                switch (corDisc){
+                    case "VERMELHO":
+                        corDisc = "Segunda";
+                        break;
+                    case "AMARELO":
+                        corDisc = "Terça";
+                        break;
+                    case "VERDE":
+                        corDisc = "Quarta";
+                        break;
+                    case "AZUL":
+                        corDisc = "Quinta";
+                        break;
+                    case "ROXO":
+                        corDisc = "Sexta";
+                        break;
+                    case "PRETO":
+                        corDisc = "Sábado";
+                        break;
+                }
+                disciplinaStr.append(disciplina.getId());
+                disciplinaStr.append(": ").append(disciplina.getPeso()).append(" Horário(s)");
+
+                horarioProf.append(disciplinaStr);
+                horarioProf.append(" - ").append(corDisc);
                 horarioProf.append("\n");
             }
             horarioProf.append("\n");
