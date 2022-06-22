@@ -87,7 +87,7 @@ public class LerGrafo {
         BufferedReader br = new BufferedReader(fr);
         String linha;
 
-//       Popula os vetores de vértices e arestas
+//      Popula os vetores de vértices e arestas
         while ((linha = br.readLine()) != null) {
             String[] auxLinha = linha.split(";");
 

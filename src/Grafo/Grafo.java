@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Grafo{
 
-    private int[][] MATRIZ_ADJACENCIA;
+    private final int[][] MATRIZ_ADJACENCIA;
     private final ArrayList<Vertice> listaVertices;
     private final ArrayList<Vertice> listaPeriodos;
     private final ArrayList<Aresta> listaDisciplinas;
@@ -36,79 +36,6 @@ public class Grafo{
         this.listaCores.add(Cor.PRETO);
     }
 
-//    public Vertice getVertice(int i){
-//        return this.getListaVertices().get(i);
-//    }
-//
-//    public ArrayList<Aresta> getListaDisciplinas() {
-//        return listaDisciplinas;
-//    }
-//
-//    public ArrayList<Vertice> getListaVertices() {return listaVertices;}
-//
-//    public void removeVertice (Vertice v1){
-//        if (v1 != null){
-//            for (Aresta aresta : v1.getArestas()) {
-//                this.getListaDisciplinas().remove(aresta);
-//            }
-//            this.getListaVertices().remove(v1);
-//        }
-//    }
-//
-//    public Vertice getVerticeByID(String id){
-//        for (Vertice vertice: this.listaVertices) {
-//            if (vertice.getId().equals(id)){
-//                return vertice;
-//            }
-//        }
-//        return null;
-//    }
-
-    public String toStringMATRIZ(){
-        StringBuilder matriz = new StringBuilder();
-        // Percorrer cada linha da matriz e concatenar o vetor na String de retorno
-        for (int[] linha: this.MATRIZ_ADJACENCIA) {
-            matriz.append(Arrays.toString(linha));
-            matriz.append("\n");
-        }
-        return matriz.toString();
-    }
-
-//    public void setMATRIZ_ADJACENCIA(int[][] MATRIZ_ADJACENCIA) {
-//        this.MATRIZ_ADJACENCIA = MATRIZ_ADJACENCIA;
-//    }
-//
-//    public void setMATRIZ_ADJACENCIA(int v1, int v2, int peso){
-//        this.MATRIZ_ADJACENCIA[v1][v2] = peso;
-//        this.MATRIZ_ADJACENCIA[v2][v1] = peso;
-//    }
-//
-//    public void clearLISTA_ADJACENCIA() {
-//        for (ArrayList<Aresta> array:this.LISTA_ADJACENCIA) {
-//            array.clear();
-//        }
-//    }
-//
-//    public ArrayList<Aresta>[] getLISTA_ADJACENCIA() {
-//        return LISTA_ADJACENCIA;
-//    }
-//    public ArrayList<Aresta> getLISTA_ADJACENCIA_POR_POSICAO(int num) {
-//        return LISTA_ADJACENCIA[num];
-//    }
-//
-//    public void setLISTA_ADJACENCIA(int i, Aresta aresta) {
-//        this.LISTA_ADJACENCIA[i].add(aresta);
-//    }
-//
-//    public Aresta getArestaById(String id){
-//        for (Aresta aresta: this.listaDisciplinas) {
-//            if (aresta.getId().equals(id)){
-//                return aresta;
-//            }
-//        }
-//        return null;
-//    }
-
     private void resetCores (){
         for (Cor cor:this.listaCores) {
             cor.resetQtdUso();
@@ -116,11 +43,17 @@ public class Grafo{
     }
 
     private boolean checkProf(Aresta discToCheck, Cor cor){
-        if (discToCheck != null && cor != null){
-            Vertice prof = discToCheck.getV1();
-            ArrayList<Aresta> discLecionadas = prof.getArestas();
-            for (Aresta disciplina:discLecionadas) {
-                if (disciplina.getCor() == cor && disciplina.getPeso() == 2){
+        if (discToCheck != null && cor != null){ // Só pro Java não reclamar de NULL
+
+            Vertice prof = discToCheck.getV1(); // Pega o prof da disciplina
+
+            ArrayList<Aresta> discLecionadas = prof.getArestas(); // Pega as disciplinas do prof
+
+            for (Aresta disciplina:discLecionadas) { // Percorre todas as disciplinas do prof
+
+                if (disciplina.getCor() == cor && disciplina.getPeso() == 2){ // Checa se a disciplina for da mesma cor
+                                                                              // passada e se a disciplina é de 2
+                                                                              // encontros (pesoAresta)
                     return false;
                 }
             }
@@ -129,19 +62,24 @@ public class Grafo{
     }
 
     public void colorirArestas(){
+        for (Vertice periodo:this.listaPeriodos){ // Percorre todos os periodos na lista de periodos
 
-//      Pinta arestas de peso 2
-        for (Vertice periodo:this.listaPeriodos) {
-            for (Aresta disciplina:periodo.getArestas()) {
-                for (int i = 0; i < this.listaCores.size(); i++) {
+            for (Aresta disciplina:periodo.getArestas()) { // Percorre todas as disciplinas do periodo
+
+                for (int i = 0; i < this.listaCores.size(); i++) { // Percorre todas as cores na lista de cores
                     int pesoAresta = disciplina.getPeso();
                     Cor cor = this.listaCores.get(i);
-                    if (this.checkProf(disciplina, cor) == true){
-                        if (disciplina.getCor() == null){
-                            if ( cor.getQtdUsos() == 0 && pesoAresta == 2){
+                    if (this.checkProf(disciplina, cor)){ // Checa se a prof já tem disciplina com a cor passada
+
+                        if (disciplina.getCor() == null){ // Checa se a disciplina já tem cor
+
+                            if ( cor.getQtdUsos() == 0 && pesoAresta == 2){ // Checa se a cor nunca foi usada e se a
+                                                                            // disciplina é de 2 encontros (pesoAresta)
                                 disciplina.setCor(cor);
                                 cor.setQtdUsos(pesoAresta);
-                            }else if ( cor.getQtdUsos() < 2 && pesoAresta != 2){
+                            }else if ( cor.getQtdUsos() < 2 && pesoAresta != 2){ // Checa se a cor foi usada no
+                                                                                 // máximo 1 vez e se a disciplina
+                                                                                 // não é de 2 encontros (pesoAresta)
                                 disciplina.setCor(cor);
                                 cor.setQtdUsos(pesoAresta);
                             }
@@ -149,7 +87,7 @@ public class Grafo{
                     }
                 }
             }
-            this.resetCores();
+            this.resetCores(); // Reseta o uso das cores após percorrer as disciplinas do período
         }
     }
 
@@ -249,5 +187,14 @@ public class Grafo{
         return horarioProf.toString();
     }
 
+    @Override
+    public String toString(){
+        StringBuilder matriz = new StringBuilder();
+        // Percorrer cada linha da matriz e concatenar o vetor na String de retorno
+        for (int[] linha: this.MATRIZ_ADJACENCIA) {
+            matriz.append(Arrays.toString(linha));
+            matriz.append("\n");
+        }
+        return matriz.toString();
+    }
 }
-
